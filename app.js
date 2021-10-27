@@ -19,8 +19,6 @@ router.get("/about", function (req, res) {
 
 router.post("/receiveWebhook", jsonParser, function (req, res) {
   console.log(req.body); // Call your action on the request here
-  console.log("YAHOO WEEBHOOK RECEIVED");
-  console.log(res);
   res.status(200).end(); // Responding is important
 });
 
