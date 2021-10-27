@@ -14,7 +14,8 @@ router.get("/about", function (req, res) {
 });
 
 router.post("/receiveWebhook", function (req, res) {
-  console.log("YAHOO WEEBHOOK RECEIVED", res.data);
+  console.log("YAHOO WEEBHOOK RECEIVED");
+  console.log(res);
 });
 
 router.get("/getData", (req, response) => {
