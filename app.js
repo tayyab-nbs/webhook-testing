@@ -5,12 +5,36 @@ const router = express.Router();
 const axios = require("axios");
 
 router.get("/", function (req, res) {
+  const config = {
+    headers: {
+      Authorization: `Bearer 7a109c01af2a4ed3b161f26ce4ef6d2b`,
+      "Content-type": "application/json",
+      Accept: "application/json",
+    },
+  };
+
+  const bodyParameters = {
+    callbackUri: "https://webhook007755-app.herokuapp.com/receiveWebhook",
+  };
+  axios
+    .post(
+      "https://services.sheerid.com/rest/v2/program/6177e7c5b761aa366d5a96d5/webhook",
+      bodyParameters,
+      config
+    )
+    .then((resp) => {
+      console.log("SHEER ID WEEBHOOK INITIATE RES : ", resp);
+    });
   res.sendFile(path.join(__dirname + "/index.html"));
   //__dirname : It will resolve to your project folder.
 });
 
 router.get("/about", function (req, res) {
   res.sendFile(path.join(__dirname + "/about.html"));
+});
+
+router.get("/receiveWebhook", function (req, res) {
+  console.log("YAHOO WEEBHOOK RECEIVED", res);
 });
 
 router.get("/getData", (req, response) => {
@@ -37,5 +61,5 @@ router.get("/sitemap", function (req, res) {
 //add the router
 app.use("/", router);
 app.listen(process.env.PORT || 5000, () => {
-  console.log("Running at Port:" + process.env.PORT);
+  console.log("Running at Port: 5000");
 });
