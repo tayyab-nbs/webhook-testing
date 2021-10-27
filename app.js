@@ -3,10 +3,6 @@ const app = express();
 const path = require("path");
 const router = express.Router();
 const axios = require("axios");
-var bodyParser = require("body-parser");
-
-// create application/json parser
-var jsonParser = bodyParser.json();
 
 router.get("/", function (req, res) {
   res.sendFile(path.join(__dirname + "/index.html"));
@@ -17,7 +13,7 @@ router.get("/about", function (req, res) {
   res.sendFile(path.join(__dirname + "/about.html"));
 });
 
-router.post("/receiveWebhook", jsonParser, function (req, res) {
+router.post("/receiveWebhook", function (req, res) {
   console.log(req.body); // Call your action on the request here
   res.status(200).end(); // Responding is important
 });
@@ -67,6 +63,13 @@ router.get("/getData", (req, response) => {
 router.get("/sitemap", function (req, res) {
   res.sendFile(path.join(__dirname + "/sitemap.html"));
 });
+
+app.use(express.json());
+app.use(
+  express.urlencoded({
+    extended: true,
+  })
+);
 
 //add the router
 app.use("/", router);
