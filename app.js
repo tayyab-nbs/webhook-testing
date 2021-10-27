@@ -5,26 +5,6 @@ const router = express.Router();
 const axios = require("axios");
 
 router.get("/", function (req, res) {
-  const config = {
-    headers: {
-      Authorization: `Bearer 7a109c01af2a4ed3b161f26ce4ef6d2b`,
-      "Content-type": "application/json",
-      Accept: "application/json",
-    },
-  };
-
-  const bodyParameters = {
-    callbackUri: "https://webhook007755-app.herokuapp.com/receiveWebhook",
-  };
-  axios
-    .post(
-      "https://services.sheerid.com/rest/v2/program/6177e7c5b761aa366d5a96d5/webhook",
-      bodyParameters,
-      config
-    )
-    .then((resp) => {
-      console.log("SHEER ID WEEBHOOK INITIATE RES : ", resp);
-    });
   res.sendFile(path.join(__dirname + "/index.html"));
   //__dirname : It will resolve to your project folder.
 });
@@ -38,20 +18,45 @@ router.get("/receiveWebhook", function (req, res) {
 });
 
 router.get("/getData", (req, response) => {
-  axios
-    .get("https://jsonplaceholder.typicode.com/todos/1")
-    .then((res) => {
-      const headerDate =
-        res.headers && res.headers.date ? res.headers.date : "no response date";
-      console.log("Status Code:", res.status);
-      console.log("Date in Response header:", headerDate);
+  const token = "7a109c01af2a4ed3b161f26ce4ef6d2b";
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-type": "application/json",
+      Accept: "application/json",
+    },
+  };
 
-      const users = res.data;
-      response.send(users);
+  const bodyParameters = {
+    callbackUri: "https://webhook007755-app.herokuapp.com",
+  };
+  axios
+    .post(
+      "https://services.sheerid.com/rest/v2/program/6177e7c5b761aa366d5a96d5/webhook",
+      bodyParameters,
+      config
+    )
+    .then((resp) => {
+      console.log("SHEER ID WEEBHOOK INITIATE RES : ", resp.data);
     })
     .catch((err) => {
-      console.log("Error: ", err.message);
+      console.log("The following error occured: ");
     });
+
+  // axios
+  //   .get("https://jsonplaceholder.typicode.com/todos/1")
+  //   .then((res) => {
+  //     const headerDate =
+  //       res.headers && res.headers.date ? res.headers.date : "no response date";
+  //     console.log("Status Code:", res.status);
+  //     console.log("Date in Response header:", headerDate);
+
+  //     const users = res.data;
+  //     response.send(users);
+  //   })
+  //   .catch((err) => {
+  //     console.log("Error: ", err.message);
+  //   });
 });
 
 router.get("/sitemap", function (req, res) {
