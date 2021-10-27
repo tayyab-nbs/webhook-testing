@@ -74,10 +74,12 @@
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script>
       function getData() {
-        axios.get(window.location.origin + "/getData").then((res) => {
-          console.log("Res");
-          console.log(res);
-        });
+        axios
+          .get("https://webhook007755-app.herokuapp.com:5000/getData")
+          .then((res) => {
+            console.log("Res");
+            console.log(res);
+          });
       }
     </script>
   </body>
