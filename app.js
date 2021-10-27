@@ -28,7 +28,7 @@ router.get("/getData", (req, response) => {
   };
 
   const bodyParameters = {
-    callbackUri: "https://webhook007755-app.herokuapp.com",
+    callbackUri: "https://webhook007755-app.herokuapp.com/receiveWebhook",
   };
   axios
     .post(
