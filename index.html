@@ -74,7 +74,7 @@
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script>
       function getData() {
-        axios.get("http://localhost:3000/getData").then((res) => {
+        axios.get(window.location.origin + "/getData").then((res) => {
           console.log("Res");
           console.log(res);
         });
