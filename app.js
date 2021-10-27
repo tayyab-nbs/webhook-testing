@@ -13,12 +13,9 @@ router.get("/about", function (req, res) {
   res.sendFile(path.join(__dirname + "/about.html"));
 });
 
-router.patch(
-  "https://services.sheerid.com/rest/v2/program/6177e7c5b761aa366d5a96d5/webhook",
-  function (req, res) {
-    console.log("YAHOO WEEBHOOK RECEIVED", res);
-  }
-);
+router.post("/receiveWebhook", function (req, res) {
+  console.log("YAHOO WEEBHOOK RECEIVED", res);
+});
 
 router.get("/getData", (req, response) => {
   const token = "7a109c01af2a4ed3b161f26ce4ef6d2b";
