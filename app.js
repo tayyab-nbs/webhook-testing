@@ -3,6 +3,10 @@ const app = express();
 const path = require("path");
 const router = express.Router();
 const axios = require("axios");
+var bodyParser = require("body-parser");
+
+// create application/json parser
+var jsonParser = bodyParser.json();
 
 router.get("/", function (req, res) {
   res.sendFile(path.join(__dirname + "/index.html"));
@@ -13,8 +17,8 @@ router.get("/about", function (req, res) {
   res.sendFile(path.join(__dirname + "/about.html"));
 });
 
-router.post("/receiveWebhook", function (req, res) {
-  console.log(req); // Call your action on the request here
+router.post("/receiveWebhook", jsonParser, function (req, res) {
+  console.log(req.body); // Call your action on the request here
   console.log("YAHOO WEEBHOOK RECEIVED");
   console.log(res);
   res.status(200).end(); // Responding is important
@@ -66,12 +70,8 @@ router.get("/sitemap", function (req, res) {
   res.sendFile(path.join(__dirname + "/sitemap.html"));
 });
 
-app.configure(function () {
-  app.set("port", process.env.PORT || 5000);
-  app.use(express.bodyParser());
-});
 //add the router
 app.use("/", router);
-var server = app.listen(app.get("port"), function () {
-  console.log("Listening on port %d", server.address().port);
+app.listen(process.env.PORT || 5000, () => {
+  console.log("Running at Port: 5000");
 });
