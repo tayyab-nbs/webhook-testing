@@ -66,8 +66,12 @@ router.get("/sitemap", function (req, res) {
   res.sendFile(path.join(__dirname + "/sitemap.html"));
 });
 
+app.configure(function () {
+  app.set("port", process.env.PORT || 5000);
+  app.use(express.bodyParser());
+});
 //add the router
 app.use("/", router);
-app.listen(process.env.PORT || 5000, () => {
-  console.log("Running at Port: 5000");
+var server = app.listen(app.get("port"), function () {
+  console.log("Listening on port %d", server.address().port);
 });
